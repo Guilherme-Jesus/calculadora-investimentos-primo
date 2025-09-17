@@ -11,11 +11,12 @@ import {
 import { InvestmentInputs } from '@/types/investment'
 import { MarketData } from '@/types/market-data'
 import { CircleQuestionMark } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { toast } from 'sonner'
+import { Label } from '../ui/label'
+import { Switch } from '../ui/switch'
 import { InvestmentCard } from './InvestmentCard'
 import { InvestmentControl } from './InvestmentControl'
-import { Label } from './ui/label'
-import { Switch } from './ui/switch'
 
 interface InvestmentCalculatorProps {
   liveMarketData: MarketData | null
@@ -31,6 +32,16 @@ export function InvestmentCalculator({
   })
 
   const [useLiveRate, setUseLiveRate] = useState(false)
+
+  // Mostrar toast quando não há dados de mercado
+  useEffect(() => {
+    if (!liveMarketData) {
+      toast.warning('Dados de mercado indisponíveis', {
+        description:
+          'O simulador continuará funcionando com a taxa Selic padrão.',
+      })
+    }
+  }, [liveMarketData])
 
   const liveSelicAnnualRate = useMemo(() => {
     if (!liveMarketData) return null

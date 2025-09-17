@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner'
 import type { Metadata } from 'next'
 import { Inter, Open_Sans, Raleway } from 'next/font/google'
 import type React from 'react'
@@ -35,6 +36,13 @@ export default function RootLayout({
         className={`${raleway.variable} ${inter.variable} ${openSans.variable} antialiased`}
       >
         {children}
+        <Toaster
+          position="top-right"
+          richColors
+          duration={5000}
+          theme="light"
+          className="toaster group"
+        />
       </body>
     </html>
   )

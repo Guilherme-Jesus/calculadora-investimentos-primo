@@ -1,16 +1,21 @@
-import { InvestmentCalculator } from '@/components/InvestmentCalculator'
+import { InvestmentCalculator } from '@/components/investment/InvestmentCalculator'
+import { CalculatorLoading } from '@/components/ui/calculator-loading'
 import { fetchSelicData } from '@/lib/market-data'
-import { MarketData } from '@/types/market-data'
 import Image from 'next/image'
+import { Suspense } from 'react'
 
-export default async function Home() {
-  let liveMarketData: MarketData | null = null
+// Componente separado para buscar dados com Suspense
+async function MarketDataProvider() {
   try {
-    liveMarketData = await fetchSelicData()
+    const liveMarketData = await fetchSelicData()
+    return <InvestmentCalculator liveMarketData={liveMarketData} />
   } catch (error) {
     console.error('Falha ao buscar dados de mercado no servidor:', error)
+    return <InvestmentCalculator liveMarketData={null} />
   }
+}
 
+export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 select-none">
       {/* Header */}
@@ -46,7 +51,9 @@ export default async function Home() {
         </div>
       </section>
 
-      <InvestmentCalculator liveMarketData={liveMarketData} />
+      <Suspense fallback={<CalculatorLoading />}>
+        <MarketDataProvider />
+      </Suspense>
     </div>
   )
 }

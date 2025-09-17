@@ -1,4 +1,4 @@
-import { InvestmentControl } from '@/components/InvestmentControl'
+import { InvestmentControl } from '@/components/investment/InvestmentControl'
 import '@testing-library/jest-dom'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { useState } from 'react'
