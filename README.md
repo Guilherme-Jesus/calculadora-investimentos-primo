@@ -47,7 +47,6 @@ npm run dev
 - **Tailwind CSS** - Estilização
 - **Radix UI** - Componentes acessíveis
 - **Jest** - Testes unitários e de interface
-- **Testing Library** - Testes de componentes React
 
 ## 📊 Regras de Negócio
 
