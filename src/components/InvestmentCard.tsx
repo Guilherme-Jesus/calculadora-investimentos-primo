@@ -1,10 +1,10 @@
-import Image from "next/image";
+import Image from 'next/image'
 
 interface InvestmentCardProps {
-  title: string;
-  value: number;
-  logo?: string;
-  logoAlt: string;
+  title: string
+  value: number
+  logo?: string
+  logoAlt: string
 }
 
 export function InvestmentCard({
@@ -34,13 +34,13 @@ export function InvestmentCard({
           className="font-inter text-4xl sm:text-5xl lg:text-6xl text-[#21211F] font-semibold leading-none"
           aria-live="polite"
         >
-          R${" "}
-          {value.toLocaleString("pt-BR", {
+          R${' '}
+          {value.toLocaleString('pt-BR', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
           })}
         </div>
       </div>
     </article>
-  );
+  )
 }

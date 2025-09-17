@@ -1,16 +1,16 @@
-"use client";
+'use client'
 
-import { Slider } from "@/components/ui/slider";
+import { Slider } from '@/components/ui/slider'
 
 interface InvestmentControlProps {
-  title: string;
-  value: number;
-  onValueChange: (value: number) => void;
-  min: number;
-  max: number;
-  step: number;
-  formatValue: (value: number) => string;
-  ariaLabel: string;
+  title: string
+  value: number
+  onValueChange: (value: number) => void
+  min: number
+  max: number
+  step: number
+  formatValue: (value: number) => string
+  ariaLabel: string
 }
 
 export function InvestmentControl({
@@ -46,5 +46,5 @@ export function InvestmentControl({
         </div>
       </div>
     </div>
-  );
+  )
 }

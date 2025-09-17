@@ -1,14 +1,14 @@
-import { InvestmentCalculator } from "@/components/InvestmentCalculator";
-import { fetchSelicData } from "@/lib/market-data";
-import { MarketData } from "@/types/market-data";
-import Image from "next/image";
+import { InvestmentCalculator } from '@/components/InvestmentCalculator'
+import { fetchSelicData } from '@/lib/market-data'
+import { MarketData } from '@/types/market-data'
+import Image from 'next/image'
 
 export default async function Home() {
-  let liveMarketData: MarketData | null = null;
+  let liveMarketData: MarketData | null = null
   try {
-    liveMarketData = await fetchSelicData();
+    liveMarketData = await fetchSelicData()
   } catch (error) {
-    console.error("Falha ao buscar dados de mercado no servidor:", error);
+    console.error('Falha ao buscar dados de mercado no servidor:', error)
   }
 
   return (
@@ -54,5 +54,5 @@ export default async function Home() {
 
       <InvestmentCalculator liveMarketData={liveMarketData} />
     </div>
-  );
+  )
 }

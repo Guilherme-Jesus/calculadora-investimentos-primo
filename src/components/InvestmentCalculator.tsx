@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   anualizeSelicRate,
@@ -7,18 +7,18 @@ import {
   formatMonths,
   INVESTMENT_CONFIG,
   SLIDER_CONFIG,
-} from "@/lib/calculator";
-import { InvestmentInputs } from "@/types/investment";
-import { MarketData } from "@/types/market-data";
-import { CircleQuestionMark } from "lucide-react";
-import { useMemo, useState } from "react";
-import { InvestmentCard } from "./InvestmentCard";
-import { InvestmentControl } from "./InvestmentControl";
-import { Label } from "./ui/label";
-import { Switch } from "./ui/switch";
+} from '@/lib/calculator'
+import { InvestmentInputs } from '@/types/investment'
+import { MarketData } from '@/types/market-data'
+import { CircleQuestionMark } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { InvestmentCard } from './InvestmentCard'
+import { InvestmentControl } from './InvestmentControl'
+import { Label } from './ui/label'
+import { Switch } from './ui/switch'
 
 interface InvestmentCalculatorProps {
-  liveMarketData: MarketData | null;
+  liveMarketData: MarketData | null
 }
 
 export function InvestmentCalculator({
@@ -28,29 +28,29 @@ export function InvestmentCalculator({
     initialAmount: SLIDER_CONFIG.initial.default,
     monthlyAmount: SLIDER_CONFIG.monthly.default,
     months: SLIDER_CONFIG.period.default,
-  });
+  })
 
-  const [useLiveRate, setUseLiveRate] = useState(false);
+  const [useLiveRate, setUseLiveRate] = useState(false)
 
   const liveSelicAnnualRate = useMemo(() => {
-    if (!liveMarketData) return null;
-    return anualizeSelicRate(liveMarketData.selicRate);
-  }, [liveMarketData]);
+    if (!liveMarketData) return null
+    return anualizeSelicRate(liveMarketData.selicRate)
+  }, [liveMarketData])
 
   // A taxa Selic usada no cálculo agora é dinâmica
   const activeSelicRate =
     useLiveRate && liveSelicAnnualRate
       ? liveSelicAnnualRate
-      : INVESTMENT_CONFIG.SELIC_RATE;
+      : INVESTMENT_CONFIG.SELIC_RATE
 
   const results = useMemo(
     () => calculateInvestmentResults(inputs, activeSelicRate),
     [inputs, activeSelicRate]
-  );
+  )
 
   const updateInput = (field: keyof InvestmentInputs, value: number) => {
-    setInputs((prev) => ({ ...prev, [field]: value }));
-  };
+    setInputs((prev) => ({ ...prev, [field]: value }))
+  }
 
   return (
     <main className="w-full mx-auto px-6 sm:px-8 lg:px-30 py-16 lg:py-20">
@@ -62,7 +62,7 @@ export function InvestmentCalculator({
           <InvestmentControl
             title="Quanto gostaria de investir?"
             value={inputs.initialAmount}
-            onValueChange={(value) => updateInput("initialAmount", value)}
+            onValueChange={(value) => updateInput('initialAmount', value)}
             min={SLIDER_CONFIG.initial.min}
             max={SLIDER_CONFIG.initial.max}
             step={SLIDER_CONFIG.initial.step}
@@ -73,7 +73,7 @@ export function InvestmentCalculator({
           <InvestmentControl
             title="Por mês, quanto investiria?"
             value={inputs.monthlyAmount}
-            onValueChange={(value) => updateInput("monthlyAmount", value)}
+            onValueChange={(value) => updateInput('monthlyAmount', value)}
             min={SLIDER_CONFIG.monthly.min}
             max={SLIDER_CONFIG.monthly.max}
             step={SLIDER_CONFIG.monthly.step}
@@ -84,7 +84,7 @@ export function InvestmentCalculator({
           <InvestmentControl
             title="Quanto tempo deixaria seu dinheiro investido?"
             value={inputs.months}
-            onValueChange={(value) => updateInput("months", value)}
+            onValueChange={(value) => updateInput('months', value)}
             min={SLIDER_CONFIG.period.min}
             max={SLIDER_CONFIG.period.max}
             step={SLIDER_CONFIG.period.step}
@@ -129,7 +129,7 @@ export function InvestmentCalculator({
           <div className="w-full h-1 bg-gray-200 rounded-full overflow-hidden">
             <div
               className="h-full bg-[#33E5B0] rounded-full transition-all duration-300"
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
             />
           </div>
 
@@ -179,5 +179,5 @@ export function InvestmentCalculator({
         </section>
       </div>
     </main>
-  );
+  )
 }
