@@ -33,16 +33,10 @@ export default async function Home() {
       </header>
 
       {/* Hero Section */}
-      <section
-        className="bg-black text-white py-12 sm:py-16 lg:py-20"
-        aria-labelledby="hero-title"
-      >
+      <section className="bg-black text-white py-12 sm:py-16 lg:py-20">
         <div className="mx-auto px-4 sm:px-6 lg:px-30">
           <div className="text-left max-w-3xl font-inter">
-            <h1
-              id="hero-title"
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 text-balance"
-            >
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 text-balance">
               Simulador de investimento
             </h1>
             <p className="text-lg sm:text-2xl text-[#BFBDB6] font-normal text-pretty">

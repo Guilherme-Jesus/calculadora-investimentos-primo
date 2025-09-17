@@ -16,7 +16,6 @@ function TestWrapper() {
       max={60}
       step={6}
       formatValue={(val: number) => `${val} meses`}
-      ariaLabel="Controle de período de teste"
     />
   )
 }

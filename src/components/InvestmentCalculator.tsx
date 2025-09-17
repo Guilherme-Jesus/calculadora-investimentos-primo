@@ -54,9 +54,9 @@ export function InvestmentCalculator({
 
   return (
     <main className="w-full mx-auto px-6 sm:px-8 lg:px-30 py-16 lg:py-20">
-      <div className="flex flex-col lg:flex-row lg:justify-between gap-8 lg:gap-14">
+      <div className="flex flex-col lg:flex-row lg:justify-between gap-14">
         {/* Controles de Investimento */}
-        <div className="space-y-6 sm:space-y-24 lg:flex-1">
+        <div className="space-y-6 sm:space-y-24 lg:flex-1 lg:max-w-2xl">
           <h2 className="sr-only">Controles de investimento</h2>
 
           <InvestmentControl
@@ -67,7 +67,6 @@ export function InvestmentCalculator({
             max={SLIDER_CONFIG.initial.max}
             step={SLIDER_CONFIG.initial.step}
             formatValue={formatCurrency}
-            ariaLabel="Valor do investimento inicial"
           />
 
           <InvestmentControl
@@ -78,7 +77,6 @@ export function InvestmentCalculator({
             max={SLIDER_CONFIG.monthly.max}
             step={SLIDER_CONFIG.monthly.step}
             formatValue={formatCurrency}
-            ariaLabel="Valor do investimento mensal"
           />
 
           <InvestmentControl
@@ -89,12 +87,11 @@ export function InvestmentCalculator({
             max={SLIDER_CONFIG.period.max}
             step={SLIDER_CONFIG.period.step}
             formatValue={formatMonths}
-            ariaLabel="Período de investimento em meses"
           />
         </div>
 
         {/* Resultados */}
-        <section className="space-y-6 sm:space-y-8 lg:flex-1">
+        <section className="space-y-6 sm:space-y-8 lg:flex-1 lg:max-w-2xl">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-0">
             <h2 className="font-inter text-xl sm:text-2xl font-semibold text-[#21211F]">
               Em {inputs.months} meses você teria:
@@ -111,7 +108,6 @@ export function InvestmentCalculator({
                 checked={useLiveRate}
                 onCheckedChange={setUseLiveRate}
                 disabled={!liveSelicAnnualRate}
-                aria-label="Usar Selic Real"
               />
             </div>
           </div>

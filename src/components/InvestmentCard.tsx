@@ -30,10 +30,7 @@ export function InvestmentCard({
         <div className="font-inter text-sm sm:text-base text-[#595855] font-semibold uppercase tracking-[0.3rem]">
           {title}
         </div>
-        <div
-          className="font-inter text-4xl sm:text-5xl lg:text-6xl text-[#21211F] font-semibold leading-none"
-          aria-live="polite"
-        >
+        <div className="font-inter text-4xl sm:text-5xl lg:text-6xl text-[#21211F] font-semibold leading-none">
           R${' '}
           {value.toLocaleString('pt-BR', {
             minimumFractionDigits: 2,

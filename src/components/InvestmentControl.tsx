@@ -10,7 +10,6 @@ interface InvestmentControlProps {
   max: number
   step: number
   formatValue: (value: number) => string
-  ariaLabel: string
 }
 
 export function InvestmentControl({
@@ -21,14 +20,13 @@ export function InvestmentControl({
   max,
   step,
   formatValue,
-  ariaLabel,
 }: InvestmentControlProps) {
   return (
     <div className="flex flex-col gap-6 p-1">
-      <h3 className="font-raleway text-xl font-semibold text-[#21211F]">
+      <h3 className="font-raleway text-xl sm:text-2xl font-semibold text-[#21211F]">
         {title}
       </h3>
-      <div className="flex flex-col gap-8 items-center justify-center w-full">
+      <div className="flex flex-col gap-6 items-center justify-center w-full">
         <Slider
           value={[value]}
           onValueChange={([newValue]) => onValueChange(newValue)}
@@ -36,12 +34,8 @@ export function InvestmentControl({
           min={min}
           step={step}
           className="w-full"
-          aria-label={ariaLabel}
         />
-        <div
-          className="font-inter text-2xl sm:text-3xl font-bold text-[#21211F]"
-          aria-live="polite"
-        >
+        <div className="font-inter text-xl sm:text-3xl font-bold text-[#21211F]">
           {formatValue(value)}
         </div>
       </div>
