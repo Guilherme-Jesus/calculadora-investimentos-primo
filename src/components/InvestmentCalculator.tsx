@@ -95,12 +95,17 @@ export function InvestmentCalculator({
 
         {/* Resultados */}
         <section className="space-y-6 sm:space-y-8 lg:flex-1">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-0">
             <h2 className="font-inter text-xl sm:text-2xl font-semibold text-[#21211F]">
               Em {inputs.months} meses você teria:
             </h2>
-            <div className="flex items-center space-x-2">
-              <Label htmlFor="useLiveRateSwitch">Usar Selic Real</Label>
+            <div className="flex items-center justify-center sm:justify-end space-x-2">
+              <Label
+                htmlFor="useLiveRateSwitch"
+                className="text-sm font-semibold"
+              >
+                Selic Real
+              </Label>
               <Switch
                 id="useLiveRateSwitch"
                 checked={useLiveRate}
