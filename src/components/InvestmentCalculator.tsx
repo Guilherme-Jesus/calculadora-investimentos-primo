@@ -1,24 +1,52 @@
 "use client";
+
 import {
+  anualizeSelicRate,
   calculateInvestmentResults,
   formatCurrency,
   formatMonths,
+  INVESTMENT_CONFIG,
   SLIDER_CONFIG,
 } from "@/lib/calculator";
 import { InvestmentInputs } from "@/types/investment";
+import { MarketData } from "@/types/market-data";
 import { CircleQuestionMark } from "lucide-react";
 import { useMemo, useState } from "react";
 import { InvestmentCard } from "./InvestmentCard";
 import { InvestmentControl } from "./InvestmentControl";
+import { Label } from "./ui/label";
+import { Switch } from "./ui/switch";
 
-export function InvestmentCalculator() {
+interface InvestmentCalculatorProps {
+  liveMarketData: MarketData | null;
+}
+
+export function InvestmentCalculator({
+  liveMarketData,
+}: InvestmentCalculatorProps) {
   const [inputs, setInputs] = useState<InvestmentInputs>({
     initialAmount: SLIDER_CONFIG.initial.default,
     monthlyAmount: SLIDER_CONFIG.monthly.default,
     months: SLIDER_CONFIG.period.default,
   });
 
-  const results = useMemo(() => calculateInvestmentResults(inputs), [inputs]);
+  const [useLiveRate, setUseLiveRate] = useState(false);
+
+  const liveSelicAnnualRate = useMemo(() => {
+    if (!liveMarketData) return null;
+    return anualizeSelicRate(liveMarketData.selicRate);
+  }, [liveMarketData]);
+
+  // A taxa Selic usada no cálculo agora é dinâmica
+  const activeSelicRate =
+    useLiveRate && liveSelicAnnualRate
+      ? liveSelicAnnualRate
+      : INVESTMENT_CONFIG.SELIC_RATE;
+
+  const results = useMemo(
+    () => calculateInvestmentResults(inputs, activeSelicRate),
+    [inputs, activeSelicRate]
+  );
 
   const updateInput = (field: keyof InvestmentInputs, value: number) => {
     setInputs((prev) => ({ ...prev, [field]: value }));
@@ -67,9 +95,21 @@ export function InvestmentCalculator() {
 
         {/* Resultados */}
         <section className="space-y-6 sm:space-y-8 lg:flex-1">
-          <h2 className="font-inter text-xl sm:text-2xl font-semibold text-[#21211F]">
-            Em {inputs.months} meses você teria:
-          </h2>
+          <div className="flex justify-between items-center">
+            <h2 className="font-inter text-xl sm:text-2xl font-semibold text-[#21211F]">
+              Em {inputs.months} meses você teria:
+            </h2>
+            <div className="flex items-center space-x-2">
+              <Label htmlFor="useLiveRateSwitch">Usar Selic Real</Label>
+              <Switch
+                id="useLiveRateSwitch"
+                checked={useLiveRate}
+                onCheckedChange={setUseLiveRate}
+                disabled={!liveSelicAnnualRate}
+                aria-label="Usar Selic Real"
+              />
+            </div>
+          </div>
 
           <div className="flex flex-col gap-4">
             <InvestmentCard
@@ -98,13 +138,17 @@ export function InvestmentCalculator() {
             <h2 className="sr-only">Informações sobre taxas e rentabilidade</h2>
 
             <div className="font-raleway text-sm sm:text-base text-[#595855] space-y-6">
-              <div className="flex gap-1 items-center">
+              <div>
                 <span className="font-semibold uppercase tracking-[0.32rem]">
                   taxa selic:
                 </span>
+                {/* Exibe a taxa Selic que está sendo usada (real ou fixa) */}
                 <span className="font-open-sans font-extrabold text-lg sm:text-xl text-[#21211F]">
-                  9,25%
+                  {(activeSelicRate * 100).toFixed(2)}% a.a.
                 </span>
+                {useLiveRate && liveSelicAnnualRate && (
+                  <span className="text-xs ml-2">(Taxa Real)</span>
+                )}
               </div>
               <div>
                 <span className="font-semibold uppercase tracking-[0.32rem]">

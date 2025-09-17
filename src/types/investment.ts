@@ -7,5 +7,4 @@ export interface InvestmentInputs {
 export interface InvestmentResults {
   selicResult: number;
   arcaResult: number;
-  totalInvested: number;
 }

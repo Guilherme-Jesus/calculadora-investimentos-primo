@@ -1,13 +1,25 @@
 import { InvestmentCalculator } from "@/components/InvestmentCalculator";
+import { fetchSelicData } from "@/lib/market-data";
+import { MarketData } from "@/types/market-data";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+  let liveMarketData: MarketData | null = null;
+  try {
+    liveMarketData = await fetchSelicData();
+  } catch (error) {
+    console.error("Falha ao buscar dados de mercado no servidor:", error);
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white border-b border-gray-200">
         <div className="mx-auto px-4 sm:px-6 lg:px-30 py-4">
-          <nav className="flex justify-start" aria-label="Navegação principal">
+          <nav
+            className="flex justify-start items-center"
+            aria-label="Navegação principal"
+          >
             <Image
               src="/images/logos/logo-grupo-primo.png"
               alt="Grupo Primo"
@@ -40,8 +52,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Calculadora */}
-      <InvestmentCalculator />
+      <InvestmentCalculator liveMarketData={liveMarketData} />
     </div>
   );
 }
